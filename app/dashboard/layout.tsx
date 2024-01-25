@@ -7,8 +7,6 @@ export default  async function DashboardLayout({children}:any) {
   
     const supabase = createServerComponentClient({cookies})
     const {data} = await supabase.auth.getSession()
-
-
     if(!data.session){
         redirect('/auth/login')
     }
