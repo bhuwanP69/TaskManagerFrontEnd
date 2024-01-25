@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { MyContext } from './MyContext';
 import { useContext } from 'react';
-import debounce from 'lodash/debounce';
+
 
  //get the data 
 export async function getData():Promise<any>{
@@ -63,21 +63,23 @@ export default  function AllTasks() {
     });
   }
   
-const fetchDataDebounced = debounce(async () => {
+const fetchData = async () => {
   try {
     const tasks = await getData();
     setTasks(tasks);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
-}, 0o0); // Adjust the debounce delay as needed
+};
 
 useEffect(() => {
-  fetchDataDebounced();
+  fetchData();
 }, [inputValue]);
+
 
 return (
   <div  className="allTasks pt-20">
+     
      {allTasks.map((Task:any) =>(
          <div   key={Task._id}  className="mb-4 relative max-w-[800px] break-words ">
              <h2  onClick={()=> MakeLine(Task._id)}  className={`relative bg-white rounded-md shadow-xl
