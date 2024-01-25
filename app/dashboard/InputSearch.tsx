@@ -1,40 +1,47 @@
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
-export default function InputSearch() {
-  const [query,setQuery] = useState('')
+interface iDefault {
+    defaultValue: string | null
+}
+export default function SearchInput({ defaultValue}: iDefault) {
+    
+    const router = useRouter()
+    const [inputValue, setValue] = useState(defaultValue)
 
-    const router = useRouter();
-    //handle change 
-    const handleChange=(e:any) =>{
-      e.preventDefault();
-      const inputValue = e.target.value;
-      console.log(`Searching for ${query}`)
-      setQuery(inputValue)
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const inputValue = event.target.value;
+        setValue(inputValue);
+        console.log(inputValue)
+        
+          // Trigger search on every input change
+    router.push(`/?q=${inputValue}`);
+    }
 
-  }
-  //handle search 
-  const handleSearch =() =>{
-    if(query){
-      return router.push(`/?q=${query}`)
-     
-    } 
-    if(!query) return router.push('/')
+    const handleSearch = () => {
+        if (inputValue) return router.push(`/?q=${inputValue}`);
+        if (!inputValue) return router.push("/")
+    }
 
-  }
-  const handleKeyPress = (e:any) =>{
-    if(e.key=== 'Enter') return handleSearch()
-  }
+    const handleKeyPress = (event: { key: any; }) => {
+        if (event.key === "Enter") return handleSearch()
+    }
+
+
   return (
-    <main>
-        {/* search */}
-        <form onSubmit={handleSearch} className="middle flex gap-10 items-center pl-32 ">
-          <input type="search" disabled placeholder="search..."  value ={query??''} onChange ={handleChange} onKeyDown = {handleKeyPress}className="p-2  w-[400px] rounded-lg outline-none pl-4 "/>
-          <button disabled className="bg-gray-300 py-0 h-7 px-4 rounded-lg hover:bg-gray-400 transition-all relative cursor-pointer  group">Search
-          <p className="absolute  hidden top-10 left-10 bg-gray-50 p-1 rounded-lg whitespace-nowrap group-hover:flex">Working on it </p>
-          </button>
-        </form>
+    <div className="search__input border-[2px] border-solid border-slate-500
+     flex flex-row items-center gap-5 p-1 rounded-[15px] w-96">
+    <label htmlFor="inputId">
+    <i className="fa-solid fa-magnifying-glass cursor-pointer pl-5"></i>
+    </label>
 
-    </main>
+    <input type="text"
+        id="inputId"
+        placeholder="Search here"
+        value={inputValue ?? ""} onChange={handleChange}
+        onKeyDown={handleKeyPress}
+        className="bg-[transparent] outline-none border-none py-3 pl-2 pr-3" />
+
+</div>
   )
 }

@@ -9,6 +9,7 @@ export default function MainPage() {
             <h1 className="text-4xl pb-10">You can list tasks for your busy schedule</h1>
            
             <div className="input">
+                
               <Input/>
             </div>
         </div>
