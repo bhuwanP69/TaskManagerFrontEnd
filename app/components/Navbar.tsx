@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import LogoutButton from './LogoutButton'
+import Link from 'next/link';
 
 export default function Navbar({user}:any) {
   let storedTheme
@@ -38,7 +39,9 @@ export default function Navbar({user}:any) {
 
   return (
     <nav className=' flex items-center justify-between pt-10 pb-10 px-14'>
+      <Link href = "/dashboard">
         <h1 className='text-3xl'>Task </h1>
+      </Link>
 
         <div className="right flex items-center gap-10">
           
