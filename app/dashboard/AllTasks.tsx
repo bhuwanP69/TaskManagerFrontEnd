@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { MyContext } from './MyContext';
 import { useContext } from 'react';
-
+import BackToTop from "./features/BackToTop";
 
  //get the data 
 export async function getData():Promise<any>{
@@ -16,7 +16,6 @@ export async function getData():Promise<any>{
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
-
   return res.json();
 
   }
@@ -81,7 +80,7 @@ return (
   <div  className="allTasks pt-20">
      
      {allTasks.map((Task:any) =>(
-         <div   key={Task._id}  className="mb-4 relative max-w-[800px] break-words ">
+       <div   key={Task._id}  className="mb-4 relative max-w-[800px] break-words ">
              <h2  onClick={()=> MakeLine(Task._id)}  className={`relative bg-white rounded-md shadow-xl
               text-black py-4   px-5 outline-none hover:bg-gray-200 cursor-pointer text-start 
               overflow-hidden ${line.includes(Task._id) ? 'bg-gray-200 !important text-gray-500': 'bg-white'} `}>
@@ -93,6 +92,7 @@ return (
             <div onClick={() =>handleDelete(Task._id)} className="delete absolute -right-20 text-2xl top-3 cursor-pointer  p-1">
         <i className="fa-solid fa-trash "></i>
         </div>
+        <BackToTop/>
       </div>
      ))}
      
