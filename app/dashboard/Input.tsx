@@ -27,7 +27,8 @@ export default function Input() {
             },
         });
 
-        const data = await response.json();      
+        const data = await response.json(); 
+        console.log(data)     
     } catch (error) {
         console.log('Error', error);
     }
@@ -42,7 +43,8 @@ export default function Input() {
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
                     placeholder="Add your Tasks...."
-                    className="w-full py-4 bg-white rounded-md shadow-xl text-black pl-5 outline-none z-10"
+                    className="w-full py-4 bg-white rounded-md
+                     shadow-xl text-black pl-5 outline-none z-10"
                 />
             </div>
             <MyContext.Provider value={{ inputValue, setInputValue }}>
