@@ -39,13 +39,13 @@ export default  function AllTasks() {
   useEffect(() =>{
     localStorage.setItem('line',JSON.stringify(line))
   },[line]);
-    //make line
+    // make line
+    
     const  MakeLine = (_id:any) =>{
       setLine((prevLine:any) => {
         const updatedLine = prevLine.includes(_id)
           ? prevLine.filter((taskId:any) => taskId !== _id)
           : [...prevLine, _id];
-    
         return updatedLine;
       });
     }
