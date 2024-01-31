@@ -14,9 +14,21 @@
 }
 
 export default function DeleteTask({ taskId, setTasks }:any) {
+  const audioUrl = "/audio/ting.mp3";
+  const playAudio =async() => {
+    const audio = document.getElementById("audio") as HTMLAudioElement;
+    if (audio) {
+        await audio.play();
+        console.log('audio playing');
+      }
+    }
+    
   const handleDelete= async ()=>{
+     await playAudio()
+
     await deleteData(taskId, setTasks);
   }
+
   return (
     <main>
    <div onClick={handleDelete}  className="circle delete
@@ -26,9 +38,11 @@ export default function DeleteTask({ taskId, setTasks }:any) {
             <div className="check absolute -top-[1px] left-1 hidden group-hover:block  transition-all ">
             <i className="fa-solid fa-check text-lg"></i>
             </div>
+            <audio id="audio" src={audioUrl}></audio>
            
                 </div>
             </div>
+            
     </main>
   )
 }
