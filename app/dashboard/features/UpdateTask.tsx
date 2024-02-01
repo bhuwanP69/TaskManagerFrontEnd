@@ -55,11 +55,6 @@ async function updateData(_id:any,updatedTask:any,setTasks:any){
       
     
     }
-    useEffect(() => {
-      // Update body background color based on the theme
-      document.body.style.backgroundColor = show ? 'rgba(0, 0, 0, 0.3)' : '#ededed';
-    }, [show]);
-  
     const handleClickOutside = (event:any) =>{
       if(moreInfoRef.current && !moreInfoRef.current.contains(event.target)){
         setShow(false)
@@ -80,7 +75,7 @@ async function updateData(_id:any,updatedTask:any,setTasks:any){
           rounded-md absolute  top-1 -right-24 text-lg cursor-pointer hover:bg-gray-200 transition-all 
              ">Update</div>   
              { show && 
-                <div ref={moreInfoRef} className="div h-80 w-[900px] bg-gray-200  border
+                <div ref={moreInfoRef} className="input h-80 w-[900px] bg-[#d1d1d1]  border
                  border-gray-400
                 fixed  left-40 right-44 top-1/3  z-20 text-lg rounded-md transition-all ">
                   <div className="input pt-10">

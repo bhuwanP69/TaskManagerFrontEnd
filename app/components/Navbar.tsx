@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import LogoutButton from './LogoutButton'
 import Link from 'next/link';
 
-export default function Navbar({user}:any) {
+export default function Navbar({user,isDarkMode}:any) {
   let storedTheme
   if (typeof localStorage !== 'undefined') {
     storedTheme = localStorage.getItem('theme');
@@ -37,6 +37,7 @@ export default function Navbar({user}:any) {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+ 
   return (
     <nav className=' flex items-center justify-between pt-10 pb-10 px-14'>
       <Link href = "/dashboard">
@@ -64,6 +65,7 @@ export default function Navbar({user}:any) {
         {user && <span className='text-xl'>Hello, {user.email}</span>}
         <LogoutButton/>
         </div>
+      
 
 
     </nav>

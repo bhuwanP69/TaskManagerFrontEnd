@@ -8,25 +8,23 @@ import DeleteTask from "./features/DeleteTask";
 
  //get the data 
 export async function getData():Promise<any>{
-
   const ServerUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER_URL;  
   if (!ServerUrl) {
     throw new Error('Server URL is not defined');
   }
-
-  const res = await fetch(`${ServerUrl}`, { next: { revalidate: 0 } });
+  const res = await fetch(`${ServerUrl}`,  { next: { revalidate: 0 } });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');
-
   }
   return res.json();
   }
 
 //all tasks
 export default  function AllTasks() {
-  const [input,showInput]= useState(false)
+  
   const [allTasks,setTasks] = useState<any[]>([])
+  const [fetchError,setFetchError] = useState('')
   const { inputValue, setInputValue } = useContext(MyContext);
   const [line,setLine]  = useState<any[]>(() =>{
     if (typeof window !== 'undefined') {
@@ -47,13 +45,15 @@ export default  function AllTasks() {
         return updatedLine;
       });
     }
-    
+
 const fetchData = async () => {
   try {
     const tasks = await getData();
     setTasks(tasks);
+    setFetchError('')
   } catch (error) {
     console.error("Error fetching data:", error);
+    setFetchError('Error fetching data')
   }
 };
 
@@ -62,8 +62,21 @@ useEffect(() => {
 }, [inputValue]); 
 
 return (
-  <div  className="allTasks pt-20">
-     {allTasks
+  <div  className="allTasks relative  pt-24">
+    <div className="today absolute -left-2 top-5 pb-10 z-20">
+    <h2 className=" text-2xl font-bold">Today</h2>
+    <div className="tasks flex pl-2">
+    <div className="group relative pr-2 ">
+            <i className="fa-regular fa-circle text-sm"></i>
+            <div className="check absolute -top-[1px] left-[1px]  pl-[1px]">
+            <i className="fa-solid fa-check text-xs"></i>
+            </div>
+            </div>
+    <p className="">{allTasks.length} tasks</p>
+    </div>
+    </div>
+     {allTasks ? (
+     allTasks
      .slice()
      .reverse()
      .map((Task:any) =>(
@@ -75,14 +88,16 @@ return (
                 {line.includes(Task._id) &&(
                     <div className=" absolute top-7 w-full overflow-hidden bg-gray-600 h-[2px] "></div>
                     )}
-                  
             </h2>
            <UpdateTask  key={Task._id} taskId={Task._id} task={Task} setTasks={setTasks} />
            <DeleteTask key={Task._id} taskId={Task._id} setTasks={setTasks}/>
         <BackToTop/>
         
       </div>
-     ))}
+     ))
+     ):(
+    <p>{fetchError || 'Loading...'}</p>
+     )}
   </div>
 )
 }

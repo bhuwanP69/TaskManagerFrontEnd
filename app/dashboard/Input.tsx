@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 
 export default function Input() {
     const [inputValue, setInputValue] = useState('');
+    const [inputError,setInputError] = useState('')
     const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setInputValue(e.target.value)
     }
@@ -26,11 +27,12 @@ export default function Input() {
                 'Content-type': 'application/json',
             },
         });
+        setInputError('')
 
         const data = await response.json(); 
-        console.log(data)     
     } catch (error) {
-        console.log('Error', error);
+        console.log(error)
+        setInputError('An error occurred while adding Task ');
     }
     }
 
@@ -47,6 +49,7 @@ export default function Input() {
                      shadow-xl text-black pl-5 outline-none z-10"
                 />
             </div>
+            {inputError && <p className="error z-30 text-red-300 pt-1">{inputError}</p>}
             <MyContext.Provider value={{ inputValue, setInputValue }}>
                  <Suspense fallback={<p>Loading feed...</p>}>
                     <AllTasks/>
