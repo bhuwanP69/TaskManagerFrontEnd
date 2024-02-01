@@ -28,7 +28,7 @@ export default function BackToTop() {
    <main>
     { showTop && 
     <button onClick={handleTop} className="none fixed bottom-5  right-5  z-50
-    bg-red-500 px-2 py-1 rounded-lg transition-all ">
+    bg-orange-500 px-2 py-1 rounded-lg transition-all ">
     <i className="fa-solid fa-arrow-up"></i>
     </button>
     }

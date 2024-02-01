@@ -1,33 +1,45 @@
+'use client'
 
- //delete the data 
- async function deleteData(_id:any,setTasks:any){
-  const ServerUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER_URL;
-    const response = await fetch(`${ServerUrl}/${_id}`,{
-      method:'DELETE',
-    })
-    if(!response.ok){
-      console.log('delete  is not successfully')
-    }else{
-      setTasks((prevTasks:any) => prevTasks.filter((task:any) => task._id !== _id));
-     
-    }
-}
+import { useEffect, useState } from "react";
 
 export default function DeleteTask({ taskId, setTasks }:any) {
   const audioUrl = "/audio/ting.mp3";
+  const ServerUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER_URL;
+  const [deleteError,setDeleteError] =useState('')
+  const [showDelete,setShowDelete] =useState(false)
   const playAudio =async() => {
     const audio = document.getElementById("audio") as HTMLAudioElement;
     if (audio) {
         await audio.play();
-        console.log('audio playing');
       }
     }
+    // Delete the data
+  const deleteData = async () => {
+    try {
+      const response = await fetch(`${ServerUrl}/${taskId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        setDeleteError('Delete not successful');
+      } if(response.ok) {
+        setTasks((prevTasks: any) => prevTasks.filter((task: any) =>
+         task._id !== taskId));
+        setDeleteError('');
+      }
+    } catch (error) {
+      console.error('Error during delete:', error);
+      setDeleteError('An error occurred while deleting');
+    }
+  };
+ 
     
   const handleDelete= async ()=>{
-     await playAudio()
-
-    await deleteData(taskId, setTasks);
+    await playAudio()
+    setShowDelete(true)
+    await deleteData();
   }
+  
 
   return (
     <main>
@@ -39,9 +51,14 @@ export default function DeleteTask({ taskId, setTasks }:any) {
             <i className="fa-solid fa-check text-lg"></i>
             </div>
             <audio id="audio" src={audioUrl}></audio>
-           
                 </div>
             </div>
+            {showDelete &&(
+             <p className=" z-30 fixed bottom-10 left-10
+             bg-gray-700 w-24 text-green-500 rounded-md transition-all"> 1 task deleted</p> 
+              )} 
+
+            {deleteError && <p className="error z-30 text-red-300 pt-1">{deleteError}</p>}
             
     </main>
   )
