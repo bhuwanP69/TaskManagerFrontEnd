@@ -4,7 +4,9 @@ import AllTasks from "./AllTasks";
 import { Suspense } from 'react'
 
 export default function Input() {
+
     const [inputValue, setInputValue] = useState('');
+    const [added,setAdded] = useState(false)
     const [inputError,setInputError] = useState('')
     const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setInputValue(e.target.value)
@@ -14,6 +16,12 @@ export default function Input() {
         if(e.key === 'Enter'){
             handlePostRequest()
             setInputValue('');
+            setAdded(true)
+
+            setTimeout(() => {
+                setAdded(false);
+            }, 3000);
+
         }
     }
     const  handlePostRequest =async() =>{
@@ -28,6 +36,8 @@ export default function Input() {
             },
         });
         setInputError('')
+       
+
 
         const data = await response.json(); 
     } catch (error) {
@@ -35,6 +45,12 @@ export default function Input() {
         setInputError('An error occurred while adding Task ');
     }
     }
+       
+  const handleInput= async ()=>{
+    
+    await handlePostRequest();
+  }
+  
 
   return (
     <div className="input">
@@ -49,8 +65,14 @@ export default function Input() {
                      shadow-xl text-black pl-5 outline-none z-10"
                 />
             </div>
+            {added &&(
+             <p className=" z-30 fixed bottom-10 left-10
+             bg-gray-800 w-32 h-10 text-center pt-2
+              text-blue-200 rounded-md transition-all"> 1 task added</p> 
+              )} 
+
             {inputError && <p className="error z-30 text-red-300 pt-1">{inputError}</p>}
-            <MyContext.Provider value={{ inputValue, setInputValue }}>
+            <MyContext.Provider value={{ inputValue }}>
                  <Suspense fallback={<p>Loading feed...</p>}>
                     <AllTasks/>
                  </Suspense>
