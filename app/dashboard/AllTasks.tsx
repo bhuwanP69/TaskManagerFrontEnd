@@ -25,7 +25,7 @@ export default  function AllTasks() {
   
   const [allTasks,setTasks] = useState<any[]>([])
   const [fetchError,setFetchError] = useState('')
-  const { inputValue, setInputValue } = useContext(MyContext);
+  const { inputValue} = useContext(MyContext);
   const [line,setLine]  = useState<any[]>(() =>{
     if (typeof window !== 'undefined') {
       // Perform localStorage action

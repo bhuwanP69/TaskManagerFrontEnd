@@ -26,6 +26,7 @@ export default function DeleteTask({ taskId, setTasks }:any) {
         setTasks((prevTasks: any) => prevTasks.filter((task: any) =>
          task._id !== taskId));
         setDeleteError('');
+       
       }
     } catch (error) {
       console.error('Error during delete:', error);
@@ -33,7 +34,8 @@ export default function DeleteTask({ taskId, setTasks }:any) {
     }
   };
  
-    
+  
+
   const handleDelete= async ()=>{
     await playAudio()
     setShowDelete(true)
@@ -54,8 +56,10 @@ export default function DeleteTask({ taskId, setTasks }:any) {
                 </div>
             </div>
             {showDelete &&(
-             <p className=" z-30 fixed bottom-10 left-10
-             bg-gray-700 w-24 text-green-500 rounded-md transition-all"> 1 task deleted</p> 
+             <p className={` z-30 fixed bottom-10   transform
+              left-10 
+             bg-gray-800 w-36 h-10 py-2 text-green-400
+              rounded-md transition-all `}> 1 task completed</p> 
               )} 
 
             {deleteError && <p className="error z-30 text-red-300 pt-1">{deleteError}</p>}
