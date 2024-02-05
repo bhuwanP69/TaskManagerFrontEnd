@@ -45,12 +45,7 @@ export default function Input() {
         setInputError('An error occurred while adding Task ');
     }
     }
-       
-  const handleInput= async ()=>{
-    
-    await handlePostRequest();
-  }
-  
+
 
   return (
     <div className="input">

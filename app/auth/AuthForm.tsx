@@ -8,7 +8,7 @@ export default function AuthForm({handleSubmit}:any) {
     <form onSubmit={(e) => handleSubmit(e,email,password)} className=' pt-10  flex flex-col  items-center justify-center  '>
       <div className="grid gap-10 pb-10">
         <label className=''>
-            <span className='pr-5 text-2xl pl-10'>Email:</span>
+            <span className='pr-5 text-xl sm:text-2xl pl-10'>Email:</span>
             <input type="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
@@ -18,7 +18,7 @@ export default function AuthForm({handleSubmit}:any) {
             />
         </label>
         <label>
-            <span className='pr-5 text-2xl'>Password:</span>
+            <span className='pr-5 text-xl sm:text-2xl'>Password:</span>
             <input type="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}

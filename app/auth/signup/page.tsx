@@ -32,7 +32,7 @@ export default function Signup() {
     }
     return (
         <main className="pt-5">
-            <h2 className="text-center text-4xl"> This is Sign Up page</h2>
+            <h2 className="text-center  text-3xl sm:text-4xl"> This is Sign Up page</h2>
             <AuthForm handleSubmit={handleSubmit} />
             {error &&
                 <div className="error text-xl bg-green-100  text-center pt-4 w-80  absolute top-2/3  left-1/3">{error}</div>

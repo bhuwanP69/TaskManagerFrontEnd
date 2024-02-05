@@ -13,7 +13,7 @@ export default async  function Navbar({children}:any) {
 
   return (
     <>
-    <div className="navbar flex justify-between  py-10 px-20 bg-orange-200	 text-black">
+    <div className="navbar flex justify-between  py-8 sm:py-10 px-10 md:px-20 bg-orange-200	 text-black">
 
       <Link href='/'>
         <h2 className="text-4xl">Task</h2>
@@ -22,7 +22,7 @@ export default async  function Navbar({children}:any) {
 
       </div>
         <div className="right ">
-            <div className="buttons flex gap-20 text-2xl  ">
+            <div className="buttons flex gap-8  sm:gap-20 text-xl sm:text-2xl  ">
                 <Link href='/auth/login' className="bg-blue-300 hover:bg-blue-400 px-3 py-1 rounded-lg transition-all">Log In </Link>
                 <Link href='/auth/signup' className="bg-orange-400 hover:bg-orange-500 px-3 py-1 rounded-lg transition-all">Sign Up </Link>
             </div>
