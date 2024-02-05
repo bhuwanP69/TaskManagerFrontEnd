@@ -47,7 +47,7 @@ export default function Login() {
 
   return (
     <main className="pt-5">
-        <h2 className="text-center text-4xl "> This is Login Page </h2>
+        <h2 className="text-center text-3xl sm:text-4xl "> This is Login Page </h2>
         <AuthForm handleSubmit = {handleSubmit}/>
         {/* <p className="text-center pt-5">or</p>
         <div className=" pt-1 text-center">
