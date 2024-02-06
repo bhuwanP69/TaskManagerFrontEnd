@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import LogoutButton from './LogoutButton'
 import Link from 'next/link';
 
@@ -14,10 +14,11 @@ export default function Navbar({user,isDarkMode}:any) {
   const [sun,setSun]= useState(true)
   const [moon,setMoon]= useState(false)
   const [showRight,setShowRight] = useState(false)
+  const moreInfoRef = useRef<HTMLDivElement>(null);
+  
   const handleBar = () => {
     setShowRight((prevShow) => !prevShow)
   };
-  
   
   const handleX =() =>{
     setShowRight(false)
@@ -46,6 +47,19 @@ export default function Navbar({user,isDarkMode}:any) {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  const handleClickOutside = (event:any) =>{
+    if(moreInfoRef.current && !moreInfoRef.current.contains(event.target)){
+    setShowRight(false)
+    }
+
+  }
+  useEffect(()=>{
+    document.addEventListener('mousedown',handleClickOutside);
+    return ()=>{
+      document.removeEventListener('mousedown',handleClickOutside)
+    }
+  },[])
+
  
   return (
     <nav className=' flex relative items-center justify-between pt-10 pb-10  px-5 md:px-14'>
@@ -59,10 +73,10 @@ export default function Navbar({user,isDarkMode}:any) {
           {/* smaller screen */}
           {showRight &&
          
-          <div className={`right smaller absolute top-5
-           text-black  bg-blue-200 right-5 
-            items-center gap-10  grid  md:hidden`}>  
-        <div className="theme" onClick={handleTheme}>
+          <div ref={moreInfoRef} className={`right border border-gray-700 smaller absolute top-5
+           text-black  bg-blue-200 right-5  rounded-md
+            items-center gap-5  grid   md:hidden px-10 pt-10 sm:pt-12 pb-5  `}>  
+        <div className="theme pl-32 hover:bg-blue-300 rounded-md transition-all pt-1" onClick={handleTheme}>
           {sun &&
           <div className="sun cursor-pointer text-3xl">
           {/* @ts-ignore */}
@@ -80,15 +94,15 @@ export default function Navbar({user,isDarkMode}:any) {
         </div>
         {user && <span className=' text-lg sm:text-xl'>Hello, {user.email}</span>}
         <LogoutButton/>
-        <div onClick={handleX} className="x  bg-red-200 px-3 py-1 rounded-md cursor-pointer absolute top-3 right-5">
+        <div onClick={handleX} className="x  bg-red-300 hover:bg-red-400 px-3 
+        py-1 rounded-md cursor-pointer absolute top-3 right-5">
         <i className="fa-solid fa-x"></i>
         </div>
         </div>
  }
-
+ {/* big screen  */}
         <div className="right  md:flex hidden items-center gap-10">
         
-          
         <div className="theme" onClick={handleTheme}>
           {sun &&
           <div className="sun cursor-pointer text-3xl">

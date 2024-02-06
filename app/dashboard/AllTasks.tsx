@@ -62,7 +62,7 @@ useEffect(() => {
 }, [inputValue]); 
 
 return (
-  <div  className="allTasks relative  pt-24">
+  <div  className="allTasks relative  pt-24 pl-5 md:pl-0 pr-20 md:pr-0">
     <div className="today absolute -left-2 top-5 pb-10 z-20">
     <h2 className=" text-2xl font-bold">Today</h2>
     <div className="tasks flex pl-2">
@@ -80,7 +80,7 @@ return (
      .slice()
      .reverse()
      .map((Task:any) =>(
-       <div   key={Task._id}  className="mb-4 relative max-w-[800px] h-full break-words ">
+       <div   key={Task._id}  className="mb-4  relative max-w-[800px] h-full break-words ">
              <h2 onClick={() => MakeLine(Task._id)}  className={`relative rounded-md shadow-xl
               text-black py-4   px-5 outline-none hover:bg-gray-200 cursor-pointer text-start 
               overflow-hidden ${line.includes(Task._id) ?' bg-gray-200 !important text-gray-600': 'bg-white'} `}>
@@ -89,8 +89,8 @@ return (
                     <div className=" absolute top-7 w-full overflow-hidden bg-gray-600 h-[2px] "></div>
                     )}
             </h2>
-           <UpdateTask  key={Task._id} taskId={Task._id} task={Task} setTasks={setTasks} />
            <DeleteTask key={Task._id} taskId={Task._id} setTasks={setTasks}/>
+           <UpdateTask  key={Task._id} taskId={Task._id} task={Task} setTasks={setTasks} />
         <BackToTop/>
         
       </div>
