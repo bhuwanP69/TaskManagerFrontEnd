@@ -3,8 +3,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import LogoutButton from './LogoutButton'
 import Link from 'next/link';
+import SearchInput from '../dashboard/features/InputSearch';
 
-export default function Navbar({user,isDarkMode}:any) {
+export default function Navbar({user,params}:any) {
   let storedTheme
   if (typeof localStorage !== 'undefined') {
     storedTheme = localStorage.getItem('theme');
@@ -59,14 +60,14 @@ export default function Navbar({user,isDarkMode}:any) {
       document.removeEventListener('mousedown',handleClickOutside)
     }
   },[])
-
  
   return (
     <nav className=' flex relative items-center justify-between pt-10 pb-10  px-5 md:px-14'>
       <Link href = "/dashboard">
         <h1 className='text-3xl'>Task </h1>
       </Link>
-
+      
+      <SearchInput/>
       <div onClick={handleBar} className="bars block md:hidden cursor-pointer pr-14">
           <i className="fa-solid fa-bars text-3xl"></i>
           </div>

@@ -27,6 +27,7 @@ export default  function AllTasks() {
   const [draggedTitle,setDraggedTitle]= useState<any>(null)
   const [fetchError,setFetchError] = useState('')
   const { inputValue} = useContext(MyContext);
+  
   const [line,setLine]  = useState<any[]>(() =>{
     if (typeof window !== 'undefined') {
       // Perform localStorage action
@@ -91,6 +92,7 @@ useEffect(() => {
   fetchData();
 }, [inputValue]); 
 
+
 return (
   <div  className="allTasks relative  pt-24 pl-5 md:pl-0 pr-20 md:pr-0">
     <div className="today absolute -left-2 top-5 pb-10 z-20">
@@ -110,7 +112,7 @@ return (
      .slice()
      .reverse()
      .map((Task:any) =>(
-       <div   key={Task._id} 
+       <div key={Task._id} 
        draggable="true"
        onDragStart={() => dragStart(Task)}
        onDragOver={dragOver}
@@ -141,6 +143,7 @@ return (
      ):(
     <p>{fetchError || 'Loading...'}</p>
      )}
+     
   </div>
 )
 }
