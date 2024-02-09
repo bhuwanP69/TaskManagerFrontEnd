@@ -24,6 +24,7 @@ export async function getData():Promise<any>{
 export default  function AllTasks() {
   
   const [allTasks,setTasks] = useState<any[]>([])
+  const [draggedTitle,setDraggedTitle]= useState<any>(null)
   const [fetchError,setFetchError] = useState('')
   const { inputValue} = useContext(MyContext);
   const [line,setLine]  = useState<any[]>(() =>{
@@ -44,6 +45,35 @@ export default  function AllTasks() {
         ? prevLine.filter((taskId:any) => taskId !== _id) : [...prevLine, _id];
         return updatedLine;
       });
+    }
+// drag and drop feature 
+    const dragStart  =(title:any) =>{
+      setDraggedTitle(title)
+    }
+    const dragEnd  =() =>{
+      setDraggedTitle(null)
+    }
+    const dragOver  =(e:any) =>{
+      e.preventDefault() // by default dropping inside element is disable 
+    }
+    const dragDrop =(e:any) =>{
+      e.preventDefault() 
+      const targetTitle  =e.target.textContent
+
+      const dragIndex = allTasks.findIndex((titles:any) =>
+      titles.task === draggedTitle.task
+      )
+      const targetIndex = allTasks.findIndex((titles:any) =>
+      titles.task === targetTitle
+      )
+
+      //reorder the task 
+      const newTask  =[...allTasks]
+      const [dragItem] = newTask.splice(dragIndex,1)
+       //1 = replace  draggedIndex -> draggedItem
+      newTask.splice(targetIndex,0,dragItem) //0 = add draggedItem
+      setTasks(newTask)
+
     }
 
 const fetchData = async () => {
@@ -80,15 +110,28 @@ return (
      .slice()
      .reverse()
      .map((Task:any) =>(
-       <div   key={Task._id}  className="mb-4  relative max-w-[800px] h-full break-words ">
-             <h2 onClick={() => MakeLine(Task._id)}  className={`relative rounded-md shadow-xl
-              text-black py-4   px-5 outline-none hover:bg-gray-200 cursor-pointer text-start 
+       <div   key={Task._id} 
+       draggable="true"
+       onDragStart={() => dragStart(Task)}
+       onDragOver={dragOver}
+       onDragEnd={dragEnd}
+       onDrop={dragDrop}
+
+        className="mb-4  relative border
+         border-gray-700 rounded-md max-w-[800px] h-full break-words ">
+
+             <h2 onClick={() => MakeLine(Task._id)} 
+              className={`relative rounded-md shadow-xl
+              text-black py-4   px-5 outline-none hover:bg-gray-100 cursor-pointer text-start 
               overflow-hidden ${line.includes(Task._id) ?' bg-gray-200 !important text-gray-600': 'bg-white'} `}>
+
                 <label>{Task.task}</label>
                 {line.includes(Task._id) &&(
-                    <div className=" absolute top-7 w-full overflow-hidden bg-gray-600 h-[2px] "></div>
+                    <div className=" absolute top-7 w-full
+                     overflow-hidden bg-gray-600 h-[2px] "></div>
                     )}
             </h2>
+            
            <DeleteTask key={Task._id} taskId={Task._id} setTasks={setTasks}/>
            <UpdateTask  key={Task._id} taskId={Task._id} task={Task} setTasks={setTasks} />
         <BackToTop/>
