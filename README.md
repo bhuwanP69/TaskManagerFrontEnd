@@ -15,3 +15,4 @@ All pull requests should be submitted to the "master" branch.
 
 Run:
 `npm install`
+`npm run dev`
