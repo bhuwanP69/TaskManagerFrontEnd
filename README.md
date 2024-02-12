@@ -14,5 +14,5 @@ I love help! Contribute by forking the repo and opening pull requests.
 All pull requests should be submitted to the "master" branch.
 
 Run:
-`npm install`
+`npm install`<br>
 `npm run dev`
