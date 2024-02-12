@@ -13,7 +13,5 @@ I like to do app that's why I decided to make it.
 I love help! Contribute by forking the repo and opening pull requests.
 All pull requests should be submitted to the "master" branch.
 
-##### Requires Node.
-
 Run:
 `npm install`
