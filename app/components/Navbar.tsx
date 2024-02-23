@@ -68,7 +68,7 @@ export default function Navbar({user,params}:any) {
       </Link>
       
       <SearchInput/>
-      <div onClick={handleBar} className="bars block md:hidden cursor-pointer pr-14">
+      <div onClick={handleBar} className="  bars block md:hidden cursor-pointer pl-3 pr-1">
           <i className="fa-solid fa-bars text-3xl"></i>
           </div>
           {/* smaller screen */}

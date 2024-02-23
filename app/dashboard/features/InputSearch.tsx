@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef } from "react";
-import UpdateTask from "./UpdateTask";
 import DeleteTask from "./DeleteTask";
 
 async function getData() {
@@ -20,6 +19,8 @@ async function getData() {
 export default function SearchInput() {
   const [inputValue, setInputValue] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [showInput, setShowInput] = useState(false);
+  const [showIcon, setShowIcon] = useState(true);
   const [showX, setShowX] = useState(false);
   const [title, setTitle] = useState<any[]>([]);
   const [notFound, setNotFound] = useState(false);
@@ -59,6 +60,10 @@ export default function SearchInput() {
   const handleSearch = () => {
     setShowSearch(true);
   };
+  const handleInput = () => {
+    setShowInput((prevshow) => !prevshow);
+    setShowIcon(false)
+  };
 
   const handleKeyPress = (event:any) => {
     if (event.key === "Enter") return handleSearch();
@@ -82,25 +87,30 @@ export default function SearchInput() {
   },[])
 
   return (
-    <div className="searchInput relative  border-[2px] border-solid border-slate-500
+    <div className="searchInput relative  border-slate-500
      flex flex-row items-center gap-5 p-1 rounded-[15px] w-96">
-      <label htmlFor="inputId">
-        <i className="fa-solid fa-magnifying-glass cursor-pointer pl-5"></i>
+     
+      <label onClick={handleInput} className="pl-2 pt-1">
+        <i className="fa-solid fa-magnifying-glass cursor-pointer   p-2 rounded-md  hover:bg-gray-50"></i>
       </label>
-
+     
+{showInput && 
+<div className="border border-black rounded-md">
       <input
-        type="text"
-        id="inputId"
-        placeholder="Search here"
-        value={inputValue}
-        onClick={() => setShowSearch(true)}
-        onChange={handleChange}
-        onKeyDown={handleKeyPress}
-        className="bg-[transparent] outline-none border-none w-full py-3 pl-2 pr-3"
+      type="text"
+      id="inputId"
+      placeholder="Search here"
+      value={inputValue}
+      onClick={() => setShowSearch(true)}
+      onChange={handleChange}
+      onKeyDown={handleKeyPress}
+      className="bg-[transparent]  outline-none border-none w-full py-3 pl-2 pr-3"
       />
+      </div>
+    }
 
       {showX && (
-        <div className="button pr-4">
+        <div className="button">
         <button onClick={handleX} className="bg-red-200  text-black px-2 pb-1 text-lg rounded-lg">
           x
         </button>
@@ -109,8 +119,8 @@ export default function SearchInput() {
 
       {showSearch && (
         <div ref={moreInfoRef} className='bg-gray-200 rounded-md text-black
-        pl-8 w-[700px] overflow-x-hidden h-[450px]
-          z-40 border absolute border-black top-20 -left-10 pr-20'>
+        pl-8 w-[380px] sm:w-[700px] overflow-x-hidden h-[300px] sm:h-[450px]
+          z-40 border absolute border-black top-20 -left-16 sm:-left-10 pr-20'>
           <main className='pl-10 '>
             <h2 className='pb-10 pt-10 font-serif text-lg'>Search Results</h2>
 
