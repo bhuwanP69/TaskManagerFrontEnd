@@ -1,4 +1,4 @@
-
+'use client'
 import { useEffect, useState } from "react";
 import { MyContext } from './MyContext';
 import { useContext } from 'react';
@@ -71,8 +71,8 @@ export default  function AllTasks() {
       //reorder the task 
       const newTask  =[...allTasks]
       const [dragItem] = newTask.splice(dragIndex,1)
-       //1 = replace  draggedIndex -> draggedItem
-      newTask.splice(targetIndex,0,dragItem) //0 = add draggedItem
+       //1 = splice one ite 
+      newTask.splice(targetIndex,0,dragItem) //0 = splice zero item just replace
       setTasks(newTask)
 
     }

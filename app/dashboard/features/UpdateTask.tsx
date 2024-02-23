@@ -1,7 +1,8 @@
+'use client'
 import { useEffect, useRef, useState } from "react";
 
 export default function UpdateTask({ taskId,task, setTasks }:any) {
-  const[error,setError] = useState(null)
+  const[error,setError] = useState('')
   const [show,setShow] = useState(false)
   const [updatedTask,setUpdatedTask] = useState(task?.task || '')
   const moreInfoRef = useRef<HTMLDivElement>(null);
@@ -9,7 +10,6 @@ export default function UpdateTask({ taskId,task, setTasks }:any) {
 //  update the data
 async function updateData(_id:any,updatedTask:any,setTasks:any){
   const serverUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER_URL;
-  try{
 
     const response = await fetch(`${serverUrl}/${_id}`,{
       method:'PUT',
@@ -20,7 +20,7 @@ async function updateData(_id:any,updatedTask:any,setTasks:any){
   })
 
   if(!response.ok){
-    console.log('update not successful')
+    setError('Update not succesfull ')
    
   }if(response.ok){
     setTasks((prevTasks:any) => 
@@ -28,13 +28,10 @@ async function updateData(_id:any,updatedTask:any,setTasks:any){
      task._id === _id ?{...task, task:updatedTask}:task
       )
       );
-      console.log('update is successful')
+setError('')
       
       
     }
-  }catch(error){
-    console.error("error updating Task...",error)
-  }
   }
   
   const handleInputChange = (e:any) =>{
@@ -87,7 +84,8 @@ async function updateData(_id:any,updatedTask:any,setTasks:any){
                  px-10 py-1 rounded-lg text-lg cursor-pointer">save</button>
                 </div>
                 </div>
-}
+             }
+             {error && (<p className="bg-red-200">{error}</p>)}
     </div>
   )
   }

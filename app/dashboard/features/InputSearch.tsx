@@ -1,21 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef } from "react";
-import UpdateTask from "./UpdateTask";
 import DeleteTask from "./DeleteTask";
-
-async function getData() {
-  const ServerUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER_URL;  
-  if (!ServerUrl) {
-    throw new Error('Server URL is not defined');
-  }
-  const res = await fetch(`${ServerUrl}`,  { next: { revalidate: 0 } });
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  return res.json();
-}
+import { getData } from "../AllTasks";
 
 export default function SearchInput() {
   const [inputValue, setInputValue] = useState("");

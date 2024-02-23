@@ -1,4 +1,4 @@
-
+'use client'
 export default function FirstPage() {
   return (
     <main className="main-body px-10 md:px-32 py-10 text-center text-Text">

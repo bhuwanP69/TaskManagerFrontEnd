@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from "react";
 import { MyContext } from "./MyContext";
 import AllTasks from "./AllTasks";
@@ -37,16 +39,12 @@ export default function Input() {
         });
         setInputError('')
        
-
-
         const data = await response.json(); 
     } catch (error) {
         console.log(error)
-        setInputError('An error occurred while adding Task ');
+        setInputError('An error occurred while adding ');
     }
     }
-
-
   return (
     <div className="input">
          <div className="input">

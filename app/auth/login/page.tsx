@@ -28,34 +28,11 @@ export default function Login() {
         }
 
     }
-    // const handleGoogleSignIn = async () => {
-    //     setError('');
-    //     const supabase = createClientComponentClient();
-    //         const { error } = await supabase.auth.signInWithOAuth({
-    //             provider: 'google',
-    //         });
-            
-    //         if (error) {
-    //             setError(error.message);
-    //         }if (!error) {
-    //             router.push('/dashboard');
-    //         }
-  
-    //     }
-    
-
 
   return (
     <main className="pt-5">
         <h2 className="text-center text-3xl sm:text-4xl "> This is Login Page </h2>
         <AuthForm handleSubmit = {handleSubmit}/>
-        {/* <p className="text-center pt-5">or</p>
-        <div className=" pt-1 text-center">
-
-        <button onClick={handleGoogleSignIn} className="bg-blue-500 text-white p-2 mt-4">
-        Sign in with Google
-        </button>
-        </div> */}
         {error &&
         <div className="">
 
