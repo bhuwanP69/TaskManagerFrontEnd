@@ -16,7 +16,7 @@ export default async  function Navbar({children}:any) {
     <div className="navbar flex justify-between  py-8 sm:py-10 px-10 md:px-20 bg-orange-200	 text-black">
 
       <Link href='/'>
-        <h2 className="text-4xl">Task</h2>
+        <h2 className="text-4xl">Do-It</h2>
       </Link>
       <div className="theme">
 
