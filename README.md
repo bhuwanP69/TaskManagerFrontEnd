@@ -1,6 +1,6 @@
 # Do-it Task
 
-"Do It" is a user-friendly task management website designed to help your achieve your goals efficiently.
+"Do It" is a user-friendly task management website designed to help achieve your goals efficiently.
 
 # Motivation
 

@@ -76,14 +76,15 @@ export default function SearchInput() {
 
   return (
     <div className="searchInput relative  border-slate-500
-     flex flex-row items-center gap-5 p-1 rounded-[15px] w-96">
+     flex flex-row items-center gap-5 p-1 rounded-[15px] w-96 h-14">
      
-      <label onClick={handleInput} className="pl-2 pt-1">
-        <i className="fa-solid fa-magnifying-glass cursor-pointer   p-2 rounded-md  hover:bg-gray-50"></i>
+      <label onClick={handleInput} className="pl-2 pt-1 ">
+        <i className="fa-solid fa-magnifying-glass cursor-pointer p-1
+        sm:text-2xl text-xl rounded-md   hover:bg-gray-400"></i>
       </label>
      
 {showInput && 
-<div className="border border-black rounded-md">
+<div className={`border border-gray-500 rounded-md  `}>
       <input
       type="text"
       id="inputId"
@@ -92,7 +93,7 @@ export default function SearchInput() {
       onClick={() => setShowSearch(true)}
       onChange={handleChange}
       onKeyDown={handleKeyPress}
-      className="bg-[transparent]  outline-none border-none w-full py-3 pl-2 pr-3"
+      className="bg-[transparent]  outline-none border-none w-full py-2 pl-2 pr-3"
       />
       </div>
     }
