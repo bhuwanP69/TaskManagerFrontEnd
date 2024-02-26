@@ -1,6 +1,5 @@
 'use client'
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function DeleteTask({ taskId, setTasks }:any) {
   const audioUrl = "/audio/ting.mp3";
@@ -33,16 +32,11 @@ export default function DeleteTask({ taskId, setTasks }:any) {
       setDeleteError('An error occurred while deleting');
     }
   };
- 
-  
-
   const handleDelete= async ()=>{
     await playAudio()
     setShowDelete(true)
     await deleteData();
   }
-  
-
   return (
     <main>
    <div onClick={handleDelete}  className="circle delete
@@ -63,7 +57,6 @@ export default function DeleteTask({ taskId, setTasks }:any) {
               )} 
 
             {deleteError && <p className="error z-30 text-red-300 pt-1">{deleteError}</p>}
-            
     </main>
   )
 }

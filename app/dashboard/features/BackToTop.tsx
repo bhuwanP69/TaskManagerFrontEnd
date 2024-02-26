@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from "react"
-
 export default function BackToTop() {
     const [showTop ,setShowTop] = useState(false)
     useEffect(()=>{
@@ -8,9 +7,7 @@ export default function BackToTop() {
             const showButton = window.scrollY > 200;
             setShowTop(showButton)
         }
-
         window.addEventListener('scroll',handleScroll)
-
         return  () =>{
             window.removeEventListener('scroll',handleScroll)
         }
