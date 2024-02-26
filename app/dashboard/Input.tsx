@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { MyContext } from "./MyContext";
 import AllTasks from "./AllTasks";
-import { Suspense } from 'react'
 
 export default function Input() {
 
@@ -37,16 +35,12 @@ export default function Input() {
         });
         setInputError('')
        
-
-
         const data = await response.json(); 
     } catch (error) {
         console.log(error)
         setInputError('An error occurred while adding Task ');
     }
     }
-
-
   return (
     <div className="input">
          <div className="input">
@@ -67,11 +61,7 @@ export default function Input() {
               )} 
 
             {inputError && <p className="error z-30 text-red-300 pt-1">{inputError}</p>}
-            <MyContext.Provider value={{ inputValue }}>
-                 <Suspense fallback={<p>Loading feed...</p>}>
-                    <AllTasks/>
-                 </Suspense>
-            </MyContext.Provider>
+            <AllTasks inputValue={inputValue}/>
 
     </div>
   )

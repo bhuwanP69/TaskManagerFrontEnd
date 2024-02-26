@@ -20,7 +20,7 @@ export default function Signup() {
             email,
             password,
             options: {
-                emailRedirectTo: `${ServerUrl}/dashboard`
+                emailRedirectTo: `${location.origin}/api/auth`
             }
         })
         if (error) {

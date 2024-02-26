@@ -64,7 +64,7 @@ export default function Navbar({user,params}:any) {
   return (
     <nav className=' flex relative items-center justify-between pt-10 pb-10  px-5 md:px-14'>
       <Link href = "/dashboard">
-        <h1 className='text-3xl'>Do-It </h1>
+        <h1 className='text-3xl font-mono'>DoIt</h1>
       </Link>
       
       <SearchInput/>

@@ -1,7 +1,5 @@
 
 import { useEffect, useState } from "react";
-import { MyContext } from './MyContext';
-import { useContext } from 'react';
 import BackToTop from "./features/BackToTop";
 import UpdateTask from "./features/UpdateTask";
 import DeleteTask from "./features/DeleteTask";
@@ -21,12 +19,11 @@ export async function getData():Promise<any>{
   }
 
 //all tasks
-export default  function AllTasks() {
+export default  function AllTasks({inputValue}:any) {
   
   const [allTasks,setTasks] = useState<any[]>([])
   const [draggedTitle,setDraggedTitle]= useState<any>(null)
   const [fetchError,setFetchError] = useState('')
-  const { inputValue} = useContext(MyContext);
   
   const [line,setLine]  = useState<any[]>(() =>{
     if (typeof window !== 'undefined') {
