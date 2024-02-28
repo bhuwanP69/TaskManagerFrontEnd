@@ -5,7 +5,7 @@ import UpdateTask from "./features/UpdateTask";
 import DeleteTask from "./features/DeleteTask";
 
  //get the data 
-export async function getData():Promise<any>{
+export async function getData():Promise<[]>{
   const ServerUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER_URL;  
   if (!ServerUrl) {
     throw new Error('Server URL is not defined');
@@ -38,11 +38,15 @@ export default  function AllTasks({inputValue}:any) {
   },[line]);
 
     const  MakeLine = (_id:any) =>{
-      setLine((prevLine:any) => {
-        const updatedLine = prevLine.includes(_id)
-        ? prevLine.filter((taskId:any) => taskId !== _id) : [...prevLine, _id];
-        return updatedLine;
-      });
+      setLine((prevLine):any =>{
+        const updatedLine = new Set(prevLine); //arr -> set
+        if (updatedLine.has(_id)){
+          updatedLine.delete(_id)
+        }else{
+          updatedLine.add(_id)
+        }
+        return Array.from(updatedLine) // set -> arr
+      })
     }
 // drag and drop feature 
     const dragStart  =(title:any) =>{
@@ -80,7 +84,6 @@ const fetchData = async () => {
     setTasks(tasks);
     setFetchError('')
   } catch (error) {
-    console.error("Error fetching data:", error);
     setFetchError('Error fetching data')
   }
 };
@@ -117,18 +120,22 @@ return (
        onDrop={dragDrop}
 
         className="mb-4  relative border
-         border-gray-700 rounded-md max-w-[800px] h-full break-words ">
+         rounded-md max-w-[800px] h-full break-words ">
 
              <h2 onClick={() => MakeLine(Task._id)} 
               className={`relative rounded-md shadow-xl
               text-black py-4   px-5 outline-none hover:bg-gray-100 cursor-pointer text-start 
-              overflow-hidden ${line.includes(Task._id) ?' bg-gray-200 !important text-gray-600': 'bg-white'} `}>
+              overflow-hidden
+               ${line.includes(Task._id) ?' bg-blue-50 text-gray-500 hover:bg-blue-50':
+                'bg-white'} `}>
 
-                <label>{Task.task}</label>
+                <label className=" relative">{Task.task}
+                
                 {line.includes(Task._id) &&(
-                    <div className=" absolute top-7 w-full
-                     overflow-hidden bg-gray-600 h-[2px] "></div>
-                    )}
+                  <div className=" absolute top-[10px] -left-[1px] w-full
+                  overflow-hidden bg-gray-500 h-[1.3px] "></div>
+                  )}
+                  </label>
             </h2>
             
            <DeleteTask key={Task._id} taskId={Task._id} setTasks={setTasks}/>

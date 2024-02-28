@@ -6,12 +6,14 @@ export default function DeleteTask({ taskId, setTasks }:any) {
   const ServerUrl = process.env.NEXT_PUBLIC_BACKEND_SERVER_URL;
   const [deleteError,setDeleteError] =useState('')
   const [showDelete,setShowDelete] =useState(false)
+
   const playAudio =async() => {
     const audio = document.getElementById("audio") as HTMLAudioElement;
     if (audio) {
         await audio.play();
       }
     }
+
     // Delete the data
   const deleteData = async () => {
     try {
@@ -21,20 +23,21 @@ export default function DeleteTask({ taskId, setTasks }:any) {
 
       if (!response.ok) {
         setDeleteError('Delete not successful');
-      } if(response.ok) {
-        setTasks((prevTasks: any) => prevTasks.filter((task: any) =>
-         task._id !== taskId));
-        setDeleteError('');
-       
       }
+       if(response.ok) {
+        setTasks((prevTasks: any) => prevTasks.filter((task: any) =>
+         task._id !== taskId)); 
+      }
+     
+
     } catch (error) {
-      console.error('Error during delete:', error);
       setDeleteError('An error occurred while deleting');
     }
   };
   const handleDelete= async ()=>{
-    await playAudio()
-    setShowDelete(true)
+    setDeleteError('');
+      setShowDelete(true)
+      await playAudio() 
     await deleteData();
   }
   return (
