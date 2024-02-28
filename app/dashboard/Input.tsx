@@ -1,13 +1,13 @@
 'use client'
-
 import { useState } from "react";
 import AllTasks from "./AllTasks";
 
 export default function Input() {
 
     const [inputValue, setInputValue] = useState('');
-    const [added,setAdded] = useState(false)
+    const [showAdded,setShowAdded] = useState(false)
     const [inputError,setInputError] = useState('')
+
     const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setInputValue(e.target.value)
     }
@@ -16,10 +16,9 @@ export default function Input() {
         if(e.key === 'Enter'){
             handlePostRequest()
             setInputValue('');
-            setAdded(true)
 
             setTimeout(() => {
-                setAdded(false);
+                setShowAdded(false);
             }, 3000);
 
         }
@@ -36,6 +35,7 @@ export default function Input() {
             },
         });
         setInputError('')
+        setShowAdded(true)
        
         const data = await response.json(); 
     } catch (error) {
@@ -50,13 +50,13 @@ export default function Input() {
                     type="text"
                     value={inputValue}
                     onChange={handleInputChange}
-                    onKeyPress={handleKeyPress}
+                    onKeyDown={handleKeyPress}
                     placeholder="Add your Tasks...."
                     className="w-full py-4 bg-white rounded-md
                      shadow-xl text-black pl-5 outline-none z-10"
                 />
             </div>
-            {added &&(
+            {showAdded &&(
              <p className=" z-30 fixed bottom-10 left-10
              bg-gray-800 w-32 h-10 text-center pt-2
               text-blue-200 rounded-md transition-all"> 1 task added</p> 
