@@ -4,15 +4,18 @@ import BackToTop from "./features/BackToTop";
 import UpdateTask from "./features/UpdateTask";
 import DeleteTask from "./features/DeleteTask";
 import { getData } from "./GetData";
-import { useInputStore } from "./store/hookstore";
+import { useInputStore, useTaskStore } from "./store/hookstore";
+import UseDragDrop from "./features/UseDragDrop";
 
 //all tasks
 export default function AllTasks() {
   const { inputValue }: any = useInputStore();
-  const [allTasks, setTasks] = useState<any[]>([]);
-  const [draggedTitle, setDraggedTitle] = useState<any>(null);
+  // const [tasks, setTasks] = useState<any[]>([]);
+  const {tTask,setTasks} = useTaskStore()
   const [fetchError, setFetchError] = useState("");
 
+  const { dragStart, dragEnd, dragOver, dragDrop } = UseDragDrop();
+  
   const [line, setLine] = useState<any[]>(() => {
     if (typeof window !== "undefined") {
       // Perform localStorage action
@@ -20,10 +23,9 @@ export default function AllTasks() {
       return storedLine ? JSON.parse(storedLine) : [];
     }
   });
-  useEffect(() => {
-    localStorage.setItem("line", JSON.stringify(line));
-  }, [line]);
-
+  useEffect(() =>{
+    localStorage.setItem("line",JSON.stringify(line))
+  },[line])
   const MakeLine = (_id: any) => {
     setLine((prevLine): any => {
       const updatedLine = new Set(prevLine); //arr -> set
@@ -35,35 +37,6 @@ export default function AllTasks() {
       return Array.from(updatedLine); // set -> arr
     });
   };
-  // drag and drop feature
-  const dragStart = (title: any) => {
-    setDraggedTitle(title);
-  };
-  const dragEnd = () => {
-    setDraggedTitle(null);
-  };
-  const dragOver = (e: any) => {
-    e.preventDefault(); // by default dropping inside element is disable
-  };
-  const dragDrop = (e: any) => {
-    e.preventDefault();
-    const targetTitle = e.target.textContent;
-
-    const dragIndex = allTasks.findIndex(
-      (titles: any) => titles.task === draggedTitle.task
-    );
-    const targetIndex = allTasks.findIndex(
-      (titles: any) => titles.task === targetTitle
-    );
-
-    //reorder the task
-    const newTask = [...allTasks];
-    const [dragItem] = newTask.splice(dragIndex, 1);
-    //1 = splice one ite
-    newTask.splice(targetIndex, 0, dragItem); //0 = splice zero item just replace
-    setTasks(newTask);
-  };
-
   const fetchData = async () => {
     try {
       const tasks: any = await getData();
@@ -89,11 +62,11 @@ export default function AllTasks() {
               <i className="fa-solid fa-check text-xs"></i>
             </div>
           </div>
-          <p className="">{allTasks.length} tasks</p>
+          <p className="">{tTask.length} tasks</p>
         </div>
       </div>
-      {allTasks ? (
-        allTasks
+      {Array.isArray(tTask) && tTask.length > 0 ? (
+        tTask
           .slice()
           .reverse()
           .map((Task: any) => (
