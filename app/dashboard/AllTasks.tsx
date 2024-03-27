@@ -10,7 +10,6 @@ import UseDragDrop from "./features/UseDragDrop";
 //all tasks
 export default function AllTasks() {
   const { inputValue }: any = useInputStore();
-  // const [tasks, setTasks] = useState<any[]>([]);
   const {tTask,setTasks} = useTaskStore()
   const [fetchError, setFetchError] = useState("");
 
@@ -49,7 +48,7 @@ export default function AllTasks() {
 
   useEffect(() => {
     fetchData();
-  }, [inputValue]);
+  }, [tTask]);
 
   return (
     <div className="allTasks relative  pt-24 pl-5 md:pl-0 pr-20 md:pr-0">
@@ -118,7 +117,7 @@ export default function AllTasks() {
             </div>
           ))
       ) : (
-        <p>{fetchError || "Loading..."}</p>
+        <p>{fetchError}</p>
       )}
     </div>
   );
